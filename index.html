@@ -44,12 +44,12 @@
          const { randomUser } = this.state
          const toggle = (user)=> {
            user.favorite = !user.favorite;
-           console.log(user);
+           const randomUser = this.state.randomUser;
            this.setState({randomUser: randomUser});
          };
          const title = createElement('h1', null, 'Acme Faker Favorites');
 
-         const userList = randomUser.map(user => createElement('div', {key: user.id, className: randomUser.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, ' Username: ', user.userName)
+         const userList = randomUser.map(user => createElement('div', {key: user.id, className: user.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, ' Username: ', user.userName)
        );
 
         return createElement('div', null, title, userList);
