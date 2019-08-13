@@ -10,6 +10,9 @@
       background-color: tomato;
       color: white
     }
+    body {
+        font-family: sans-serif;
+      }
   </style>
   </head>
   <body>
@@ -35,24 +38,28 @@
           randomUser.push({id: i, name: faker.name.findName(), userName: faker.internet.userName()});
         };
        this.state = {
-         randomUser
+         randomUser,
+         count: 0
         };
        }
 
 
        render() {
-         const { randomUser } = this.state
+         const { randomUser, count } = this.state
          const toggle = (user)=> {
            user.favorite = !user.favorite;
-           const randomUser = this.state.randomUser;
-           this.setState({randomUser: randomUser});
+           let count = randomUser.filter(user=> user.favorite === true).length;
+           this.setState({randomUser, count});
+           console.log(this.state);
          };
          const title = createElement('h1', null, 'Acme Faker Favorites');
+
+         const favCounter = createElement('h2', null, 'You have ',count, ' favorite users');
 
          const userList = randomUser.map(user => createElement('div', {key: user.id, className: user.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, ' Username: ', user.userName)
        );
 
-        return createElement('div', null, title, userList);
+        return createElement('div', null, title, favCounter, userList);
        }
 
       }
