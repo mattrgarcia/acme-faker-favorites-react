@@ -5,6 +5,12 @@
 
       <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'> </script>
 
+  <style>
+    .favorite {
+      background-color: tomato;
+      color: white
+    }
+  </style>
   </head>
   <body>
     <div id="root">
@@ -18,25 +24,35 @@
       const {render} = ReactDOM;
       const {createElement, Component} = React;
       const root = document.querySelector("#root");
-      let randomUser =[];
 
-
-      for (let i=0; i<10;i++) {
-        randomUser.push({id: i, name: faker.name.findName(), userName: faker.internet.userName()});
-      }
 
       class App extends Component {
 
        constructor() {
         super();
-
+        let randomUser =[];
+        for (let i=0; i<10;i++) {
+          randomUser.push({id: i, name: faker.name.findName(), userName: faker.internet.userName()});
+        };
+       this.state = {
+         randomUser
+        };
        }
-       render() {
 
-         const userList = randomUser.map(user => createElement('div', {key: user.id}, "Name: ", user.name, ' Username: ', user.userName)
+
+       render() {
+         const { randomUser } = this.state
+         const toggle = (user)=> {
+           user.favorite = !user.favorite;
+           console.log(user);
+           this.setState({randomUser: randomUser});
+         };
+         const title = createElement('h1', null, 'Acme Faker Favorites');
+
+         const userList = randomUser.map(user => createElement('div', {key: user.id, className: randomUser.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, ' Username: ', user.userName)
        );
 
-        return createElement('div', null, userList);
+        return createElement('div', null, title, userList);
        }
 
       }
