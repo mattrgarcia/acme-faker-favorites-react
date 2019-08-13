@@ -13,6 +13,9 @@
     body {
         font-family: sans-serif;
       }
+      div {
+        padding: 1rem;
+      }
   </style>
   </head>
   <body>
@@ -50,13 +53,14 @@
            user.favorite = !user.favorite;
            let count = randomUser.filter(user=> user.favorite === true).length;
            this.setState({randomUser, count});
-           console.log(this.state);
          };
+
+
          const title = createElement('h1', null, 'Acme Faker Favorites');
 
          const favCounter = createElement('h2', null, 'You have ',count, ' favorite users');
 
-         const userList = randomUser.map(user => createElement('div', {key: user.id, className: user.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, ' Username: ', user.userName)
+         const userList = randomUser.map(user => createElement('div', {key: user.id, className: user.favorite ? 'favorite':'', onClick: ()=> toggle(user) }, "Name: ", user.name, '\n', 'Username: ', user.userName)
        );
 
         return createElement('div', null, title, favCounter, userList);
