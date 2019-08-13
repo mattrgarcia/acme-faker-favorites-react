@@ -1,7 +1,50 @@
 <html>
   <head>
+      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'> </script>
+
   </head>
   <body>
-    <script></script>
+    <div id="root">
+
+
+    </div>
+
+
+
+    <script>
+      const {render} = ReactDOM;
+      const {createElement, Component} = React;
+      const root = document.querySelector("#root");
+      let randomUser =[];
+
+
+      for (let i=0; i<10;i++) {
+        randomUser.push({id: i, name: faker.name.findName(), userName: faker.internet.userName()});
+      }
+
+      class App extends Component {
+
+       constructor() {
+        super();
+
+       }
+       render() {
+
+         const userList = randomUser.map(user => createElement('div', {key: user.id}, "Name: ", user.name, ' Username: ', user.userName)
+       );
+
+        return createElement('div', null, userList);
+       }
+
+      }
+
+
+
+
+      render(createElement(App), root);
+    </script>
   </body>
 </html>
